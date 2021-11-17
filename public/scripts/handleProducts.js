@@ -61,8 +61,6 @@ const showProductPage = async (productId) => {
         numberInput.value = numberOfProductsInCart.toString();
       });
 
-      let cartArray = [];
-
       buttonAddToCart.addEventListener("click", () => {
         cartArray = JSON.parse(localStorage.getItem("cart"));
         if (cartArray === null) cartArray = [];
