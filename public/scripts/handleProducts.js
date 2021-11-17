@@ -78,6 +78,18 @@ const showProductPage = async (productId) => {
           },
         };
 
+        let indexToUpdate;
+
+        cartArray.forEach((product) => {
+          if (product.id === currentProduct.id) {
+            indexToUpdate = cartArray.indexOf(product);
+
+            currentProduct.quantity =
+              currentProduct.quantity + product.quantity;
+            cartArray.splice(indexToUpdate, 1);
+          } else return;
+        });
+
         cartArray.push(currentProduct);
 
         localStorage.setItem("cart", JSON.stringify(cartArray));

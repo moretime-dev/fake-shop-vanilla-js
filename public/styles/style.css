@@ -55,6 +55,13 @@ header {
   text-shadow: 2px 2px 2px rgb(102, 16, 30);
 }
 
+.home-symbol {
+  position: absolute;
+  left: 3%;
+  bottom: 4%;
+  width: 7%;
+}
+
 /** HEADER Styling END*/
 
 /** PRODUCT PREVIEW Area Styling */

@@ -60,26 +60,22 @@ const displayShoppingCart = () => {
 
         shoppingCartContainer.innerHTML = "";
 
-        if (shoppingCartFromLocalStorage.length === 0) {
-          shoppingCartContainer.innerHTML = `
-        
-        <h3 class="shopping-cart-empty-message">You don't have any items in your shopping cart yet. Shop NOW!</h3>
-        
-        `;
-        } else {
-          displayShoppingCart();
-        }
+        checkIfShoppingCartIsEmpty();
       });
     });
   });
 };
 
-if (shoppingCartFromLocalStorage.length === 0) {
-  shoppingCartContainer.innerHTML = `
- 
- <h3 class="shopping-cart-empty-message">You don't have any items in your shopping cart yet. Shop NOW!</h3>
- 
- `;
-} else {
-  displayShoppingCart();
-}
+const checkIfShoppingCartIsEmpty = () => {
+  if (shoppingCartFromLocalStorage.length === 0) {
+    shoppingCartContainer.innerHTML = `
+   
+   <h3 class="shopping-cart-empty-message">You don't have any items in your shopping cart yet. Shop NOW!</h3>
+   
+   `;
+  } else {
+    displayShoppingCart();
+  }
+};
+
+checkIfShoppingCartIsEmpty();
