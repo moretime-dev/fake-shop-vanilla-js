@@ -2,10 +2,18 @@
 
 const apiUrl = "https://fakestoreapi.com/products/";
 const productPage = document.querySelector(".product-page");
+const numberOfProductsInShoppingCart = document.querySelector(
+  ".number-of-products"
+);
 
 let productId = localStorage.getItem("currentProductId");
 
 const showProductPage = async (productId) => {
+  const shoppingCartFromLocalStorage = JSON.parse(localStorage.getItem("cart"));
+
+  numberOfProductsInShoppingCart.textContent =
+    shoppingCartFromLocalStorage.length;
+
   await fetch(apiUrl + productId)
     .then((res) => res.json())
     .then((product) => {
@@ -27,7 +35,7 @@ const showProductPage = async (productId) => {
       </p>
       <p>
         <a href="./cart.html">
-          <button class="goto-checkout-btn">Go To Checkout</button>
+          <button class="goto-checkout-btn">Go To Cart</button>
         </a>
       </p>
       <h2>Description:</h2><br>
@@ -41,7 +49,7 @@ const showProductPage = async (productId) => {
 
       const numberInput = document.querySelector(".product-page-no-products");
 
-      let numberOfProductsInCart = parseInt(numberInput.value);
+      let numberOfItems = parseInt(numberInput.value);
 
       const buttonDecrease = document.querySelector(".product-page-cart-minus");
       const buttonIncrease = document.querySelector(".product-page-cart-plus");
@@ -50,26 +58,32 @@ const showProductPage = async (productId) => {
       );
 
       buttonIncrease.addEventListener("click", () => {
-        numberOfProductsInCart++;
-        numberInput.value = numberOfProductsInCart.toString();
+        numberOfItems++;
+        numberInput.value = numberOfItems.toString();
       });
 
       buttonDecrease.addEventListener("click", () => {
-        if (numberOfProductsInCart <= 1) return;
-        numberOfProductsInCart--;
+        if (numberOfItems <= 1) return;
+        numberOfItems--;
 
-        numberInput.value = numberOfProductsInCart.toString();
+        numberInput.value = numberOfItems.toString();
       });
 
       buttonAddToCart.addEventListener("click", () => {
         cartArray = JSON.parse(localStorage.getItem("cart"));
         if (cartArray === null) cartArray = [];
 
+        buttonAddToCart.classList.add("add-to-cart-animation");
+
+        setTimeout(() => {
+          buttonAddToCart.classList.remove("add-to-cart-animation");
+        }, 1000);
+
         const currentProduct = {
           id: productId,
           image: product.image,
           title: product.title,
-          quantity: numberOfProductsInCart,
+          quantity: numberOfItems,
           pricePerUnit: product.price,
           get priceAllProductItems() {
             return this.quantity * this.pricePerUnit;

@@ -4,7 +4,16 @@ const shoppingCartFromLocalStorage = JSON.parse(localStorage.getItem("cart"));
 
 const shoppingCartContainer = document.querySelector(".shopping-cart");
 
+const numberOfProductsInShoppingCart = document.querySelector(
+  ".number-of-products"
+);
+
 const displayShoppingCart = () => {
+  const shoppingCartFromLocalStorage = JSON.parse(localStorage.getItem("cart"));
+
+  numberOfProductsInShoppingCart.textContent =
+    shoppingCartFromLocalStorage.length;
+
   shoppingCartContainer.innerHTML += `
    <section class="shopping-cart">
       <section class="shopping-cart-header">
@@ -27,16 +36,17 @@ const displayShoppingCart = () => {
           <img src=${item.image} alt=${
       item.title
     } class="shopping-cart-img"></div>
-        <div class="shopping-cart-column shopping-cart-title">${
-          item.title
-        }</div>
+        <div class="shopping-cart-column shopping-cart-title">
+          <a href="./product.html" class="link-to-product">${
+            item.title
+          }</a></div>
 
         <div class="shopping-cart-quantity">
-        <input type="number" class="shopping-cart-no-products" value=${
-          item.quantity
-        } readonly="true"></input>
-        <button class="shopping-cart-page-minus">-</button>
-        <button class="shopping-cart-page-plus">+</button>
+          <input type="number" class="shopping-cart-no-products" value=${
+            item.quantity
+          } readonly="true"></input>
+          <button class="shopping-cart-page-minus">-</button>
+          <button class="shopping-cart-page-plus">+</button>
         </div>
 
         <div class="shopping-cart-column price">€${item.pricePerUnit.toFixed(
@@ -54,6 +64,93 @@ const displayShoppingCart = () => {
     </section>
 
       `;
+
+    /** Set Product ID For Title Link */
+
+    const itemLinks = document.querySelectorAll(".link-to-product");
+
+    itemLinks.forEach((itemLink) => {
+      itemLink.addEventListener("click", () => {
+        const productId =
+          itemLink.parentElement.parentElement.children[0].textContent;
+
+        localStorage.setItem("currentProductId", productId);
+      });
+    });
+
+    /** Set Product ID For Title Link END */
+
+    /** Change Item Quantity */
+
+    const buttonDecrease = document.querySelectorAll(
+      ".shopping-cart-page-minus"
+    );
+    const buttonIncrease = document.querySelectorAll(
+      ".shopping-cart-page-plus"
+    );
+
+    const numberInputs = document.querySelectorAll(
+      ".shopping-cart-no-products"
+    );
+
+    const recalculateCart = (item, numberOfItems) => {
+      let cartFromLocalStorage = JSON.parse(localStorage.getItem("cart"));
+      cartFromLocalStorage.forEach((product) => {
+        if (product.id === item) {
+          let index = cartFromLocalStorage.indexOf(product);
+
+          cartFromLocalStorage[index].quantity = numberOfItems;
+          cartFromLocalStorage[index].priceAllProductItems =
+            numberOfItems * product.pricePerUnit;
+
+          localStorage.setItem("cart", JSON.stringify(cartFromLocalStorage));
+        }
+      });
+
+      window.location.reload();
+    };
+
+    buttonIncrease.forEach((btnIncrease) => {
+      btnIncrease.addEventListener("click", () => {
+        let itemToIncrease =
+          btnIncrease.parentElement.parentElement.children[0].textContent;
+        numberInputs.forEach((numberInput) => {
+          let inputFieldToIncrease =
+            numberInput.parentElement.parentElement.children[0].textContent;
+
+          if (inputFieldToIncrease === itemToIncrease) {
+            let numberOfItems = parseInt(numberInput.value);
+            numberOfItems++;
+            numberInput.value = numberOfItems.toString();
+
+            recalculateCart(itemToIncrease, numberOfItems);
+          }
+        });
+      });
+    });
+
+    buttonDecrease.forEach((btnDecrease) => {
+      btnDecrease.addEventListener("click", () => {
+        let itemToIncrease =
+          btnDecrease.parentElement.parentElement.children[0].textContent;
+        numberInputs.forEach((numberInput) => {
+          let inputFieldToIncrease =
+            numberInput.parentElement.parentElement.children[0].textContent;
+          if (inputFieldToIncrease === itemToIncrease) {
+            let numberOfItems = parseInt(numberInput.value);
+            if (numberOfItems <= 1) return;
+            numberOfItems--;
+            numberInput.value = numberOfItems.toString();
+
+            recalculateCart(itemToIncrease, numberOfItems);
+          }
+        });
+      });
+    });
+
+    /** Change Item Quantity END*/
+
+    /** Delete Item From Cart */
 
     const deleteBtn = document.querySelectorAll(".shopping-cart-delete");
 
@@ -78,10 +175,16 @@ const displayShoppingCart = () => {
         checkIfShoppingCartIsEmpty();
       });
     });
+
+    /** Delete Item From Cart END */
   });
 };
 
+/** Check Shopping Cart Contents */
+
 const checkIfShoppingCartIsEmpty = () => {
+  const shoppingCartFromLocalStorage = JSON.parse(localStorage.getItem("cart"));
+
   const displayOrderTotal = document.querySelector(".order-total");
   const cartEmptyMessage = document.querySelector(
     ".shopping-cart-empty-message"
@@ -99,6 +202,10 @@ const checkIfShoppingCartIsEmpty = () => {
   }
 };
 
+/** Check Shopping Cart Contents END*/
+
+/** Calculate Order Total */
+
 const calculcateOrderTotal = () => {
   const displayOrderTotal = document.querySelector(".order-total");
 
@@ -107,8 +214,13 @@ const calculcateOrderTotal = () => {
     orderTotal += product.priceAllProductItems;
   });
 
-  console.log(orderTotal);
   displayOrderTotal.innerHTML = `<i>ORDER TOTAL: €${orderTotal.toFixed(2)}</i>`;
 };
 
+/** Calculate Order Total END */
+
+/** Initialize Shopping Cart Page */
+
 checkIfShoppingCartIsEmpty();
+
+/** Initialize Shopping Cart Page END */

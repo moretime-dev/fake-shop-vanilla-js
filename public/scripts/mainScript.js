@@ -4,6 +4,9 @@ const apiUrl = "https://fakestoreapi.com/products/";
 
 const categories = document.querySelector(".categories");
 const productsPreviews = document.querySelector(".products-main");
+const numberOfProductsInShoppingCart = document.querySelector(
+  ".number-of-products"
+);
 
 let categoriesArray = [];
 
@@ -33,22 +36,57 @@ document.addEventListener("DOMContentLoaded", () => {
   getCategories();
 
   const displayProductPreviews = async () => {
+    let currentCategory = localStorage.getItem("currentCategory");
+    const shoppingCartFromLocalStorage = JSON.parse(
+      localStorage.getItem("cart")
+    );
+
+    numberOfProductsInShoppingCart.textContent =
+      shoppingCartFromLocalStorage.length;
+
     await fetch(apiUrl)
       .then((res) => res.json())
       .then((json) =>
         json.map((product) => {
-          productsPreviews.innerHTML += `
-          <section class="product-preview-container">
-          <a href="./product.html">
-          <h2 style="display: none">${product.id}</h2>
-          <div class="product-preview-img-container">
-          <img src=${product.image} class="product-preview-img" alt=${
-            product.title
-          }></div>
-          <h2 class="product-preview-title">${product.title}</h2><br><br>
-          <h3 class="product-preview-price">€${product.price.toFixed(2)}</h3>
-          </a>
-          </section>`;
+          let filteredProducts = json.filter(
+            (product) => product.category === currentCategory
+          );
+
+          if (filteredProducts.length > 0) {
+            productsPreviews.innerHTML = "";
+            filteredProducts.map((product) => {
+              productsPreviews.innerHTML += `
+            <section class="product-preview-container">
+              <a href="./product.html">
+                <h2 style="display: none">${product.id}</h2>
+                <div class="product-preview-img-container">
+                  <img src=${product.image} class="product-preview-img" alt=${
+                product.title
+              }></div>
+                <h2 class="product-preview-title">${product.title}</h2><br><br>
+                <h3 class="product-preview-price">€${product.price.toFixed(
+                  2
+                )}</h3>
+              </a>
+            </section>`;
+            });
+          } else {
+            productsPreviews.innerHTML += `
+            <section class="product-preview-container">
+              <a href="./product.html">
+                <h2 style="display: none">${product.id}</h2>
+                <div class="product-preview-img-container">
+                  <img src=${product.image} class="product-preview-img" alt=${
+              product.title
+            }>
+                </div>
+                <h2 class="product-preview-title">${product.title}</h2><br><br>
+               <h3 class="product-preview-price">€${product.price.toFixed(
+                 2
+               )}</h3>
+              </a>
+            </section>`;
+          }
         })
       );
 
@@ -59,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     filterCategories(categoryList);
     setProductId(productLinks);
+    setCategory(categoryList);
   };
 
   if (productsPreviews) {
@@ -71,7 +110,9 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(apiUrl)
           .then((res) => res.json())
           .then((json) => {
-            const filteredProducts = json.filter(
+            let filteredProducts;
+
+            filteredProducts = json.filter(
               (product) => product.category === category.textContent
             );
 
@@ -119,6 +160,14 @@ document.addEventListener("DOMContentLoaded", () => {
         let productId = productLink.children[0].children[0].textContent;
 
         localStorage.setItem("currentProductId", productId);
+      });
+    });
+  };
+
+  const setCategory = (categoryList) => {
+    categoryList.forEach((category) => {
+      category.addEventListener("click", () => {
+        localStorage.setItem("currentCategory", category.textContent);
       });
     });
   };
