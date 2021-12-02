@@ -214,7 +214,12 @@ const calculcateOrderTotal = () => {
     orderTotal += product.priceAllProductItems;
   });
 
-  displayOrderTotal.innerHTML = `<i>ORDER TOTAL: €${orderTotal.toFixed(2)}</i>`;
+  localStorage.setItem("orderTotal", orderTotal.toFixed(2));
+
+  displayOrderTotal.innerHTML = `
+  <i>ORDER TOTAL: €${orderTotal.toFixed(2)}</i>
+  <br>
+  <a href="./checkout.html"><button class="goto-checkout-btn">Go To Checkout</button></a>`;
 };
 
 /** Calculate Order Total END */
