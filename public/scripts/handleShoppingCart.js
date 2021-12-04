@@ -172,6 +172,8 @@ const displayShoppingCart = () => {
 
         shoppingCartContainer.innerHTML = "";
 
+        location.reload();
+
         checkIfShoppingCartIsEmpty();
       });
     });
@@ -189,7 +191,10 @@ const checkIfShoppingCartIsEmpty = () => {
   const cartEmptyMessage = document.querySelector(
     ".shopping-cart-empty-message"
   );
-  if (shoppingCartFromLocalStorage.length === 0) {
+  if (
+    shoppingCartFromLocalStorage === null ||
+    shoppingCartFromLocalStorage.length === 0
+  ) {
     displayOrderTotal.innerHTML = "";
     cartEmptyMessage.innerHTML = `
    

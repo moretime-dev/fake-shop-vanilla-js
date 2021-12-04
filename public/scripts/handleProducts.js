@@ -11,8 +11,12 @@ let productId = localStorage.getItem("currentProductId");
 const showProductPage = async (productId) => {
   const shoppingCartFromLocalStorage = JSON.parse(localStorage.getItem("cart"));
 
-  numberOfProductsInShoppingCart.textContent =
-    shoppingCartFromLocalStorage.length;
+  if (!shoppingCartFromLocalStorage) {
+    numberOfProductsInShoppingCart.textContent = 0;
+  } else {
+    numberOfProductsInShoppingCart.textContent =
+      shoppingCartFromLocalStorage.length;
+  }
 
   await fetch(apiUrl + productId)
     .then((res) => res.json())
@@ -105,6 +109,8 @@ const showProductPage = async (productId) => {
         cartArray.push(currentProduct);
 
         localStorage.setItem("cart", JSON.stringify(cartArray));
+
+        location.reload();
       });
     });
 };

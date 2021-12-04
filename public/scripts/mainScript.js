@@ -41,8 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.getItem("cart")
     );
 
-    numberOfProductsInShoppingCart.textContent =
-      shoppingCartFromLocalStorage.length;
+    if (!shoppingCartFromLocalStorage) {
+      numberOfProductsInShoppingCart.textContent = 0;
+    } else {
+      numberOfProductsInShoppingCart.textContent =
+        shoppingCartFromLocalStorage.length;
+    }
 
     await fetch(apiUrl)
       .then((res) => res.json())

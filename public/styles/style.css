@@ -480,3 +480,26 @@ li {
 }
 
 /** CHECKOUT SITE END*/
+
+/** Order Confirmation Page*/
+
+.order-confirmation {
+  width: 70vw;
+  margin: auto;
+}
+
+.confirmation-message {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-size: 1rem;
+}
+
+.user-address {
+  font-size: 0.8rem;
+}
+
+.user-address > * {
+  margin-bottom: 1em;
+}
+
+/** Order Confirmation Page END*/
