@@ -224,7 +224,7 @@ const calculcateOrderTotal = () => {
   displayOrderTotal.innerHTML = `
   <i>ORDER TOTAL: €${orderTotal.toFixed(2)}</i>
   <br>
-  <a href="./checkout.html"><button class="goto-checkout-btn">Go To Checkout</button></a>`;
+  <a href="./checkout.html"><button class="goto-cart-btn">Go To Checkout</button></a>`;
 };
 
 /** Calculate Order Total END */

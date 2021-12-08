@@ -37,6 +37,8 @@ checkoutContents.innerHTML += `
       </div>
    </section>
 
+   <section class="warning"></section>
+
    <section id="address">
       <div>
          <label for="first-name">First Name:</label>
@@ -98,25 +100,25 @@ let formDataisValid = false;
 
 const checkInputFields = () => {
   if (contactFormInputs[0].value.length < 2) {
-    warning.innerHTML += `<p>Please Enter First Name!</p>`;
+    warning.innerHTML = `<p>Please Enter First Name!</p>`;
     return;
   } else if (contactFormInputs[1].value.length < 2) {
-    warning.innerHTML += `<p>Please Enter Last Name!</p>`;
+    warning.innerHTML = `<p>Please Enter Last Name!</p>`;
     return;
   } else if (contactFormInputs[2].value.length < 3) {
-    warning.innerHTML += `<p>Please Enter Street Name!</p>`;
+    warning.innerHTML = `<p>Please Enter Street Name!</p>`;
     return;
   } else if (
     contactFormInputs[3].value.length !== 5 ||
     parseInt(contactFormInputs[3].value) === isNaN
   ) {
-    warning.innerHTML += `<p>Please Enter Valid Zip Code!</p>`;
+    warning.innerHTML = `<p>Please Enter Valid Zip Code!</p>`;
     return;
   } else if (contactFormInputs[4].value.length < 3) {
-    warning.innerHTML += `<p>Please Enter City!</p>`;
+    warning.innerHTML = `<p>Please Enter City!</p>`;
     return;
   } else if (!contactFormInputs[5].value.includes("@")) {
-    warning.innerHTML += `<p>Please Enter Valid Email!</p>`;
+    warning.innerHTML = `<p>Please Enter Valid Email!</p>`;
     return;
   }
   formDataisValid = true;

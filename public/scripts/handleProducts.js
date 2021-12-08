@@ -39,7 +39,7 @@ const showProductPage = async (productId) => {
       </p>
       <p>
         <a href="./cart.html">
-          <button class="goto-checkout-btn">Go To Cart</button>
+          <button class="goto-cart-btn">Go To Cart</button>
         </a>
       </p>
       <h2>Description:</h2><br>
