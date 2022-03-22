@@ -1,4 +1,4 @@
-"usestrict";
+"use strict";
 
 const checkoutContents = document.querySelector(".checkout-contents");
 

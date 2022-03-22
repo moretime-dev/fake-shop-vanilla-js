@@ -1,4 +1,4 @@
-"usestrict";
+"use strict";
 
 const apiUrl = "https://fakestoreapi.com/products/";
 const productPage = document.querySelector(".product-page");
@@ -42,7 +42,7 @@ const showProductPage = async (productId) => {
           <button class="goto-cart-btn">Go To Cart</button>
         </a>
       </p>
-      <h2>Description:</h2><br>
+      <h2 class="product-page-description-tag">Description:</h2><br>
       <p class="product-page-description">${product.description}</p>
       <p class="product-page-rating">Rating: ${product.rating.rate}/5 (${
         product.rating.count
@@ -74,7 +74,7 @@ const showProductPage = async (productId) => {
       });
 
       buttonAddToCart.addEventListener("click", () => {
-        cartArray = JSON.parse(localStorage.getItem("cart"));
+        let cartArray = JSON.parse(localStorage.getItem("cart"));
         if (cartArray === null) cartArray = [];
 
         buttonAddToCart.classList.add("add-to-cart-animation");

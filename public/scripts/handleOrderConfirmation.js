@@ -1,4 +1,4 @@
-"usestrict";
+"use strict";
 
 const displayAddressData = document.querySelector(".order-confirmation");
 const addressData = JSON.parse(localStorage.getItem("userAddress"));

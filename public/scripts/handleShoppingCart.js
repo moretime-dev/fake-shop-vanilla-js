@@ -1,4 +1,4 @@
-"usestrict";
+"use strict";
 
 const shoppingCartFromLocalStorage = JSON.parse(localStorage.getItem("cart"));
 

@@ -65,7 +65,7 @@ header {
 .cart-symbol {
   position: absolute;
   right: 3%;
-  top: 4%;
+  top: 6%;
   width: 7%;
   opacity: 50%;
 }
@@ -73,7 +73,7 @@ header {
 .number-of-products {
   position: absolute;
   right: 1%;
-  top: 5%;
+  top: 7%;
   width: 7%;
   font-size: 1.3rem;
   font-weight: bold;
@@ -511,7 +511,7 @@ li {
 
 @media screen and (min-width: 400px) {
   .number-of-products {
-    top: 6%;
+    top: 8%;
   }
 
   .product-preview-container {
@@ -534,8 +534,8 @@ li {
   }
 
   .number-of-products {
-    top: 9%;
-    right: 0.9%;
+    top: 12%;
+    right: 0.8%;
     font-size: 1.9rem;
   }
 
@@ -597,7 +597,7 @@ li {
   }
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 813px) {
   header {
     height: 25em;
   }
@@ -617,9 +617,13 @@ li {
   }
 
   .categories {
-    margin-top: 10em;
+    margin-top: 1em;
     margin-left: 2em;
     font-size: 0.8rem;
+  }
+
+  .category {
+    margin-bottom: 0.7em;
   }
 
   .product-preview-container {
@@ -674,6 +678,7 @@ li {
 
   .goto-cart-btn {
     font-size: 1.3rem;
+    cursor: pointer;
   }
 
   .product-page-description {
@@ -859,6 +864,109 @@ li {
     width: 50vw;
     margin-left: 50em;
     margin-top: 5em;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  header {
+    height: 50em;
+  }
+
+  .header-img {
+    top: -90%;
+  }
+
+  .brand-name {
+    font-size: 5rem;
+  }
+
+  .header-slogan {
+    font-size: 3rem;
+  }
+
+  .home-symbol {
+    width: 3%;
+  }
+
+  .cart-symbol {
+    width: 3.5%;
+  }
+
+  .number-of-products {
+    top: 7%;
+    right: -1.5%;
+    font-size: 4rem;
+  }
+
+  .categories {
+    margin-top: 10em;
+    margin-left: 17em;
+    font-size: 1.5rem;
+  }
+
+  .shop-area {
+    display: flex;
+    margin-top: 10em;
+    margin-left: 30vw;
+  }
+
+  .product-preview-container {
+    width: 30em;
+    margin-left: 8em;
+    margin-bottom: 5em;
+  }
+
+  .product-page {
+    width: 60vw;
+  }
+
+  .product-page-title {
+    font-size: 1.7rem;
+    text-align: center;
+  }
+
+  .product-page-category,
+  .product-page-rating {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .product-page-rating {
+    margin-top: 3em;
+  }
+
+  .product-page-img {
+    width: 20%;
+    margin-top: 3em;
+  }
+
+  .product-page-description {
+    width: 60ch;
+    margin: auto;
+  }
+
+  .product-page-description-tag {
+    width: 88ch;
+    margin: auto;
+  }
+
+  .product-page-back {
+    margin-left: 15vw;
+  }
+
+  .shopping-cart {
+    margin-top: 10em;
+    width: 50vw;
+  }
+
+  .order-total-grid {
+    margin-right: 45em;
+  }
+
+  .order-confirmation {
+    width: 20vw;
+    margin-left: 40vw;
+    margin-top: 8em;
   }
 }
 
